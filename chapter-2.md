@@ -45,7 +45,7 @@ pub contract HelloWorld {
 
 In flow blockchain the data is stored in accounts so the role of AuthAccount is to access the data that is stored in the specific account, basically every time a user wants to make a transaction AuthAccount accesses the data stored on that specific account.
 
-##3.What is the difference between the prepare phase and the execute phase in the transaction?
+## 3.What is the difference between the prepare phase and the execute phase in the transaction?
 
 Basically prepare is the phase when the data is accessed and the transaction is approved by the user meanwhile in execute we call the specific functions for the data that we want to change. So prepare is access data and execute is the logic of changing the data
 
