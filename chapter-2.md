@@ -19,3 +19,33 @@ In order to check whether the variable is actually equals to "the best" we need 
 After executing the script we can see that the result shows that the constant is of the type string and the value is equal to "the best"
 
 ![Jacob Tucker Contract Script Result](Cadence-images/Script-contract-JacobTucker-result.png)
+
+
+# Chapter 2 Day 2
+
+## 1.Explain why we wouldn't call changeGreeting in a script.
+
+A script is only used to view data, and cannot make changes to the data in the blockchain, meanwhile transactions are allowed to change data on te blockchain so they can access and modify data, meanwhile a script can only view data and not modify data on blockchain
+
+```cadence
+pub contract HelloWorld { 
+    pub var greeting: String
+   
+    pub fun changeGreeting(newGreeting: String){
+    self.greeting = newGreeting
+        }
+   
+    init(){
+        self.greeting = "Hello, World!"
+    }
+}
+```
+
+## 2.What does the AuthAccount mean in the prepare phase of the transaction?
+
+In flow blockchain the data is stored in accounts so the role of AuthAccount is to access the data that is stored in the specific account, basically every time a user wants to make a transaction AuthAccount accesses the data stored on that specific account.
+
+##3.What is the difference between the prepare phase and the execute phase in the transaction?
+
+Basically prepare is the phase when the data is accessed and the transaction is approved by the user meanwhile in execute we call the specific functions for the data that we want to change. So prepare is access data and execute is the logic of changing the data
+
