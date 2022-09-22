@@ -86,7 +86,7 @@ pub fun main(): Int{
 }
 ```
 
-![Jacob Tucker Contract](Cadence-images/adding-newNumber-HelloWorld-Contract.png)
+![HelloWorld Contract](Cadence-images/adding-newNumber-HelloWorld-Contract.png)
  
     •Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the   script again.
     
@@ -104,4 +104,69 @@ pub fun main(): Int{
 ```
     
 
- ![Jacob Tucker Contract](Cadence-images/HelloWorld-contract-after-changing-newNumber.png)
+ ![After Transaction Contract](Cadence-images/HelloWorld-contract-after-changing-newNumber.png)
+ 
+ 
+ # Chapter 2 Day 3
+ 
+ ## 1. In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.
+ 
+ ```cadence
+ pub fun main(){
+    var favoritePeople: [String] = ["Tim", "Jane", "Joe"]
+    log(favoritePeople) // we can log the entire array or log them one by one
+    log(favoritePeople[0]) //Tim
+    log(favoritePeople[1]) //Jane
+    log(favoritePeople[2]) //Joe
+    log(favoritePeople.length) //Using built-in function lenth we log the length to the console
+}
+ ```
+ 
+ ![Array Log Image](Cadence-images/array-log.png)
+ 
+ ## 2. In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!
+
+```cadence
+pub fun main()
+{
+    var socialMedia: {String:UInt64} = {"Youtube": 1, "Instagram": 2, "LinkedIn": 3, "Facebook": 4, "Twitter": 5, "Reddit": 0, "TikTok": 0}
+    log(socialMedia)
+    log(socialMedia["Instagram"])
+}
+```
+ ![Dictionary Log Image](Cadence-images/Dictionary-log.png)
+ 
+ ## 3. Explain what the force unwrap operator ! does, with an example
+
+In the example above we have created a dictionary with keys string and value ages of the type UInt64 which means only positive values and the size 64 bit, Values of dictionary by default have the optional operator ?, but we want to assign the value of the older person in a list to a UInt64 variable named olderOne, but when we do that we get the following error
+
+![Dictionary Optional Error](Cadence-images/optional-operator-error.png)
+
+So how do we solve the above error? We have another operator in cadence which is called the force unwrap operator which checks if the value is nil, it aborts the program, and if the value is UInt64 it removes the optional operator and the program will continue to execute.
+
+![Dictionary Force Unwrap operator](Cadence-images/forced-wrap-operator.png)
+
+## 4. Using this picture below, explain...
+    What the error message means
+    Why we're getting this error
+    How to fix it
+![Quest-4](Cadence-images/quest4-ch2-day3.png)
+
+This quest is very similar to the quest three example above but in this case the main function returns a string and it's not of the type void, we are trying to return a the string value of the address, but in dictionaries the type of values always have the optional operator which means in our case that it can be string or it can nil, and as stated above we solve this error by using force unwrap operator which checks if it is string remove optional operator and continue and if it is not string abort the program. 
+```cadence
+pub fun main(): String
+{
+    let thing: {Address:String} = {0x01:"One", 0x02:"Two", 0x02: "Three"}
+
+    return thing[0x03]!
+}
+```
+Or the another solution is that we can change our function from expecting string to excpecting string with optional operator like is shown below and we will not have mismatched types.
+```cadence
+pub fun main(): String?
+{
+    let thing: {Address:String} = {0x01:"One", 0x02:"Two", 0x02: "Three"}
+
+    return thing[0x03]
+}
+```
