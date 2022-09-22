@@ -78,16 +78,15 @@ Basically prepare is the phase when the data is accessed and the transaction is 
 
     •Add a script that reads myNumber from the contract
     
- ```cadence
+```cadence
  import HelloWorld from 0x01
 
 pub fun main(): Int{
   return HelloWorld.myNumber
 }
- ```
+```
 
-
-    ![Jacob Tucker Contract](Cadence-images/adding-newNumber-HelloWorld-Contract.png)
+![Jacob Tucker Contract](Cadence-images/adding-newNumber-HelloWorld-Contract.png)
  
     •Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the   script again.
     
