@@ -170,3 +170,87 @@ pub fun main(): String?
     return thing[0x03]
 }
 ```
+
+
+ # Chapter 2 Day 4
+ 
+ 1. Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).
+
+ 2. Create a dictionary or array that contains the Struct you defined.
+
+ 3. Create a function to add to that array/dictionary.
+
+```Cadence
+
+//We have created a new contract called myWallet 
+pub contract myWallet
+{
+  //We have created a dictionary which stores the information about many wallets based on the walletName
+  pub var Wallets: {String: Cryptos}
+
+  //We have created a struct where we have defined the information that we will store about each wallet
+  pub struct Cryptos {
+    pub var bitcoin: UInt64
+    pub var monero: UInt64
+    pub var dogecoin: UInt64
+    pub var shiba: UInt64
+    pub var etherium: UInt64
+    pub var walletName: String
+    
+    init(_bitcoin: UInt64, _monero: UInt64, _dogecoin: UInt64, _shiba: UInt64, _etherium: UInt64, _walletName: String)
+    {
+      self.bitcoin = _bitcoin
+      self.monero = _monero
+      self.dogecoin = _dogecoin
+      self.shiba = _shiba
+      self.etherium = _etherium
+      self.walletName = _walletName
+    }
+  }
+
+  //We have created a function named addWallet which creates a new wallet with the necessary information
+  pub fun addWallet(bitcoin: UInt64, monero: UInt64, dogecoin: UInt64, shiba: UInt64, etherium: UInt64, walletName: String)
+  {
+    let newWallet = Cryptos(_bitcoin: bitcoin, _monero: monero, _dogecoin: dogecoin, _shiba: shiba, _etherium: etherium, _walletName: walletName) 
+    self.Wallets[walletName] = newWallet // Adding the new wallet to the dictionary
+  }
+  init()
+  {
+    self.Wallets = {}
+  }
+}
+```
+
+ 4. Add a transaction to call that function in step 3.
+ 
+ ```cadence
+//Importing the contract from the user we have deployed
+import myWallet from 0x02
+
+//Creating a transaction with the necessary parameters asked by the addWallet function
+transaction(bitcoin: UInt64, monero: UInt64, dogecoin: UInt64, shiba: UInt64, etherium: UInt64, walletName: String)
+{
+    prepare(signer: AuthAccount){}
+    execute
+    {
+      myWallet.addWallet(bitcoin: bitcoin, monero: monero, dogecoin: dogecoin, shiba: shiba, etherium: etherium, walletName: walletName)
+      log("Wallet is created")
+    }
+}
+ ```
+ 
+  5. Add a script to read the Struct you defined.
+  
+  ```cadence
+  //Importing the contract from the user we have deployed
+import myWallet from 0x02
+
+//Creating a function which accepts wallet name as a parameter which our key in the dictionary and return the type Cryptos which is the struct that we defined in the contract
+pub fun main(walletName: String): myWallet.Cryptos
+{
+    return myWallet.Wallets[walletName]! //NOTE: We have used force unwrap operator avoid mismatched type
+} 
+  ```
+  
+  ### Result
+{"type":"Struct","value":{"id":"A.0000000000000002.myWallet.Cryptos","fields":[{"name":"bitcoin","value":{"type":"UInt64","value":"3"}},{"name":"monero","value":{"type":"UInt64","value":"3"}},{"name":"dogecoin","value":{"type":"UInt64","value":"4"}},{"name":"shiba","value":{"type":"UInt64","value":"6"}},{"name":"etherium","value":{"type":"UInt64","value":"7"}},{"name":"walletName","value":{"type":"String","value":"Xhoni"}}]}}
